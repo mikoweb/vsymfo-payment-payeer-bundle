@@ -47,6 +47,12 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root($this->alias);
         $rootNode
             ->children()
+                ->scalarNode('shop_id')
+                    ->isRequired()
+                ->end()
+                ->scalarNode('secret_key')
+                    ->isRequired()
+                ->end()
             ->end()
         ;
 

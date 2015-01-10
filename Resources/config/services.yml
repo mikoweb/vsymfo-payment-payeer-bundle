@@ -1,7 +1,7 @@
 services:
     payment.payeer.client:
         class: vSymfo\Payment\PayeerBundle\Client\Client
-        arguments: []
+        arguments: [%vsymfo_payment_payeer.shop_id%, %vsymfo_payment_payeer.secret_key%]
 
     payment.plugin.payeer:
         class: vSymfo\Payment\PayeerBundle\Plugin\PayeerPlugin

@@ -19,4 +19,42 @@ namespace vSymfo\Payment\PayeerBundle\Client;
  */
 class Client
 {
+    /**
+     * The identifier of shop registered in Payeer system on which will be made payment.
+     * @var string
+     */
+    private $shopId;
+
+    /**
+     * Look to shoop settings
+     * @var string
+     */
+    private $secretKey;
+
+    /**
+     * @param string $shopId
+     * @param string $secretKey
+     */
+    function __construct($shopId, $secretKey)
+    {
+        $this->shopId = $shopId;
+        $this->secretKey = $secretKey;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getSecretKey()
+    {
+        return $this->secretKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShopId()
+    {
+        return $this->shopId;
+    }
 }
