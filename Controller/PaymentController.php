@@ -36,7 +36,7 @@ class PaymentController extends Controller
         ;
 
         if (is_null($instruction)) {
-            return $this->createNotFoundException('Instruction not found');
+            throw $this->createNotFoundException('Instruction not found');
         }
 
         $client = $this->get('payment.payeer.client');
@@ -84,7 +84,7 @@ class PaymentController extends Controller
         ;
 
         if (is_null($instruction)) {
-            return $this->createNotFoundException('Instruction not found');
+            throw $this->createNotFoundException('Instruction not found');
         }
 
         return $this->redirect($this->generateUrl($this->container->getParameter('vsymfo_payment_payeer.route_success'), array(
@@ -104,7 +104,7 @@ class PaymentController extends Controller
         ;
 
         if (is_null($instruction)) {
-            return $this->createNotFoundException('Instruction not found');
+            throw $this->createNotFoundException('Instruction not found');
         }
 
         return $this->redirect($this->generateUrl($this->container->getParameter('vsymfo_payment_payeer.route_fail'), array(
