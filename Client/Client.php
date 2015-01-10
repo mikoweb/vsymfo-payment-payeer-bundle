@@ -20,6 +20,11 @@ namespace vSymfo\Payment\PayeerBundle\Client;
 class Client
 {
     /**
+     * Url do formularza
+     */
+    const FORM_URL = 'https://payeer.com/merchant/';
+
+    /**
      * The identifier of shop registered in Payeer system on which will be made payment.
      * @var string
      */
@@ -56,5 +61,15 @@ class Client
     public function getShopId()
     {
         return $this->shopId;
+    }
+
+    /**
+     * Generowanie parametru m_sign do formularza
+     * @param array $data
+     * @return string
+     */
+    public function createFormHash(array $data)
+    {
+        return strtoupper(hash('sha256', implode(':', $data)));
     }
 }

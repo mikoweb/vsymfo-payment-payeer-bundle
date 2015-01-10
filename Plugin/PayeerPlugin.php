@@ -101,6 +101,35 @@ class PayeerPlugin extends AbstractPlugin
         $instruction = $transaction->getPayment()->getPaymentInstruction();
         $extendedData = $transaction->getExtendedData();
 
+        $m_shop = $this->client->getShopId();
+        $m_orderid = $instruction->getId();
+        $m_amount = number_format($transaction->getRequestedAmount(), 2, '.', '');
+        $m_curr = $instruction->getCurrency();
+        $m_desc = base64_encode(($extendedData->has('description') ? $extendedData->get('description') : ''));
+        $m_key = $this->client->getSecretKey();
+
+        $data = array(
+            'm_shop'    => $m_shop,
+            'm_orderid' => $m_orderid,
+            'm_amount'  => $m_amount,
+            'm_curr'    => $m_curr,
+            'm_desc'    => $m_desc,
+            'm_process' => 'send',
+            'm_sign'    => $this->client->createFormHash(array(
+                $m_shop,
+                $m_orderid,
+                $m_amount,
+                $m_curr,
+                $m_desc,
+                $m_key
+            ))
+        );
+
+        $actionRequest->setAction(new VisitUrl(http_build_url(Client::FORM_URL
+            , array('query' => http_build_query($data))
+            , HTTP_URL_STRIP_AUTH | HTTP_URL_JOIN_PATH | HTTP_URL_JOIN_QUERY | HTTP_URL_STRIP_FRAGMENT
+        )));
+
         return $actionRequest;
     }
 
