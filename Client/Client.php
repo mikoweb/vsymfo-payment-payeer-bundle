@@ -12,6 +12,8 @@
 
 namespace vSymfo\Payment\PayeerBundle\Client;
 
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Klient Payeer
  * @author Rafał Mikołajun <rafal@vision-web.pl>
@@ -71,5 +73,54 @@ class Client
     public function createFormHash(array $data)
     {
         return strtoupper(hash('sha256', implode(':', $data)));
+    }
+
+    /**
+     * Uzyskaj dane płatności na podstawie obiektu Request
+     * @param Request $request
+     * @return array
+     * @throws \Exception
+     */
+    public function getPaymentResponse(Request $request)
+    {
+        $post = $request->request;
+
+        if (is_null($post->get('m_operation_id', null)) || is_null($post->get('m_sign', null))) {
+            throw new \Exception('Invalid response', 1);
+        }
+
+        $data = array(
+            'm_operation_id'        => $post->get('m_operation_id', null),
+            'm_operation_ps'        => $post->get('m_operation_ps', null),
+            'm_operation_date'      => $post->get('m_operation_date', null),
+            'm_operation_pay_date'  => $post->get('m_operation_pay_date', null),
+            'm_shop'                => $post->get('m_shop', null),
+            'm_orderid'             => $post->get('m_orderid', null),
+            'm_amount'              => $post->get('m_amount', null),
+            'm_curr'                => $post->get('m_curr', null),
+            'm_desc'                => $post->get('m_desc', null),
+            'm_status'              => $post->get('m_status', null),
+            'm_sign'                => $post->get('m_sign', null),
+        );
+
+        $sign_hash = strtoupper(hash('sha256', implode(':', array(
+            $data['m_operation_id'],
+            $data['m_operation_ps'],
+            $data['m_operation_date'],
+            $data['m_operation_pay_date'],
+            $data['m_shop'],
+            $data['m_orderid'],
+            $data['m_amount'],
+            $data['m_curr'],
+            $data['m_desc'],
+            $data['m_status'],
+            $this->getSecretKey()
+        ))));
+
+        if ($post->get('m_sign', null) != $sign_hash) {
+            throw new \Exception('Invalid hash', 2);
+        }
+
+        return $data;
     }
 }

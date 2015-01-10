@@ -53,6 +53,12 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('secret_key')
                     ->isRequired()
                 ->end()
+                ->scalarNode('route_success')
+                    ->isRequired()
+                ->end()
+                ->scalarNode('route_fail')
+                    ->isRequired()
+                ->end()
             ->end()
         ;
 

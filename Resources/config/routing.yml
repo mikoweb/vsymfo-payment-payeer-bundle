@@ -1,5 +1,11 @@
-vsymfo_payment_payeer_callback:
-    pattern: /transaction/{id}/urlc
-    defaults: { _controller: vSymfoPaymentPayeerBundle:Payment:callback }
-    requirements:
-        id: \d+
+vsymfo_payment_payeer_status:
+    pattern: /transaction/urlc
+    defaults: { _controller: vSymfoPaymentPayeerBundle:Payment:status }
+
+vsymfo_payment_payeer_success:
+    pattern: /redirect/success
+    defaults: { _controller: vSymfoPaymentPayeerBundle:Payment:success }
+
+vsymfo_payment_payeer_fail:
+    pattern: /redirect/fail
+    defaults: { _controller: vSymfoPaymentPayeerBundle:Payment:fail }
