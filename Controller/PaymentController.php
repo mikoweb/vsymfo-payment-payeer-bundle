@@ -28,7 +28,7 @@ class PaymentController extends Controller
      * @return Response
      * @throws \RuntimeException
      */
-    public function callbackAction(Request $request)
+    public function statusAction(Request $request)
     {
         $instruction = $this->getDoctrine()
             ->getRepository('JMSPaymentCoreBundle:PaymentInstruction')
