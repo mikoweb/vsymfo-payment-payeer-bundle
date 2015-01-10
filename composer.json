@@ -1,0 +1,26 @@
+{
+    "name": "mikoweb/vsymfo-payment-payeer-bundle",
+    "type": "symfony-bundle",
+    "description": "vSymfo Payeer Payment Bundle",
+    "keywords": ["payment", "payeer"],
+    "homepage": "http://vision-web.pl",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rafał Mikołajun",
+            "email": "rafal@vision-web.pl",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "mikoweb/vsymfo-payments": "dev-master",
+        "mikoweb/vsymfo-core": "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "vSymfo\\Payment\\PayeerBundle\\": "" }
+    },
+    "target-dir": "vSymfo/Payment/PayeerBundle",
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

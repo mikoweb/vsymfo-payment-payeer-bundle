@@ -1,0 +1,15 @@
+services:
+    payment.payeer.client:
+        class: vSymfo\Payment\PayeerBundle\Client\Client
+        arguments: []
+
+    payment.plugin.payeer:
+        class: vSymfo\Payment\PayeerBundle\Plugin\PayeerPlugin
+        arguments: [@router, @payment.payeer.client, @payment.event_dispatcher]
+        tags: [{name: payment.plugin}]
+
+    payment.form.payeer_type:
+        class: vSymfo\Payment\PayeerBundle\Form\PayeerType
+        tags:
+            - {name: payment.method_form_type}
+            - {name: form.type, alias: payeer_payment}

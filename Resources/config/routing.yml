@@ -1,0 +1,5 @@
+vsymfo_payment_payeer_callback:
+    pattern: /transaction/{id}/urlc
+    defaults: { _controller: vSymfoPaymentPayeerBundle:Payment:callback }
+    requirements:
+        id: \d+
