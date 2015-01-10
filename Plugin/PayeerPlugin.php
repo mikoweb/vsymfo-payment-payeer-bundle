@@ -86,7 +86,7 @@ class PayeerPlugin extends AbstractPlugin
     public function approveAndDeposit(FinancialTransactionInterface $transaction, $retry)
     {
         if ($transaction->getState() === FinancialTransactionInterface::STATE_NEW) {
-            throw $this->createEgopayRedirect($transaction);
+            throw $this->createPayeerRedirect($transaction);
         }
 
         $this->approve($transaction, $retry);
@@ -97,7 +97,7 @@ class PayeerPlugin extends AbstractPlugin
      * @param FinancialTransactionInterface $transaction
      * @return ActionRequiredException
      */
-    public function createEgopayRedirect(FinancialTransactionInterface $transaction)
+    public function createPayeerRedirect(FinancialTransactionInterface $transaction)
     {
         $actionRequest = new ActionRequiredException('Redirecting to Payeer.');
         $actionRequest->setFinancialTransaction($transaction);
