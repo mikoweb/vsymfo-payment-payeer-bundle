@@ -69,7 +69,7 @@ class PaymentController extends Controller
 
         $em->flush();
 
-        return new Response('OK');
+        return new Response($response['m_orderid'] . '|success');
     }
 
     /**
